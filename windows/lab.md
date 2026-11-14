@@ -1,34 +1,31 @@
-# Laboratorio Windows: políticas, permisos y auditoría
+# Windows Lab: Security Policies, Permissions and Auditing
 
-Este laboratorio es independiente del laboratorio Linux. Se puede realizar en
-Windows 10, Windows 11 o Windows Server dentro de una máquina virtual.
+This lab is independent of the Linux lab. It can be performed on Windows 10, Windows 11 or Windows Server running inside a virtual machine.
 
-## 1. Configuración
+## 1. Configuration
 
-Crear dos usuarios locales y un grupo `Projecte`, aplicar una política de
-contraseñas, proteger `C:\Projecte` mediante permisos NTFS y registrar el acceso
-a esa carpeta en el visor de eventos.
+Create two local user accounts and a `Projecte` group, apply a password policy, protect `C:\Projecte` using NTFS permissions and audit access to that folder through Windows Event Viewer.
 
-## 2. Preparación
+## 2. Preparation
 
-Abre PowerShell como administrador y comprueba el sistema:
+Open PowerShell as Administrator and check the system information:
 
 ```powershell
 Get-ComputerInfo | Select-Object WindowsProductName, WindowsVersion, OsBuildNumber
 whoami
 ```
 
-## 3. Usuarios y grupo
+## 3. Users and Groups
 
 ```powershell
-$Password = Read-Host "Contraseña temporal" -AsSecureString
-New-LocalUser -Name "usuari1" -Password $Password -Description "Usuario de laboratorio"
-New-LocalUser -Name "usuari2" -Password $Password -Description "Usuario de laboratorio"
-New-LocalGroup -Name "Projecte" -Description "Grupo del proyecto"
+$Password = Read-Host "Temporary password" -AsSecureString
+New-LocalUser -Name "usuari1" -Password $Password -Description "Lab user"
+New-LocalUser -Name "usuari2" -Password $Password -Description "Lab user"
+New-LocalGroup -Name "Projecte" -Description "Project group"
 Add-LocalGroupMember -Group "Projecte" -Member "usuari1", "usuari2"
 ```
 
-Si los objetos ya existen, no los vuelvas a crear: compruébalos:
+If the objects already exist, do not create them again. Verify their existence instead:
 
 ```powershell
 Get-LocalUser -Name usuari1, usuari2
@@ -36,39 +33,34 @@ Get-LocalGroup -Name Projecte
 Get-LocalGroupMember -Group Projecte
 ```
 
-## 4. Política de contraseñas
+## 4. Password Policy
 
-Abre `secpol.msc` y navega a:
+Open `secpol.msc` and navigate to:
 
-`Configuración de seguridad > Directivas de cuenta > Directiva de contraseñas`
+`Security Settings > Account Policies > Password Policy`
 
-Configura:
+Configure the following settings:
 
-| Política | Valor |
+| Policy | Value |
 |---|---:|
-| Longitud mínima | 10 caracteres |
-| La contraseña debe cumplir requisitos de complejidad | Habilitada |
-| Vigencia máxima | 90 días |
-| Historial | 5 contraseñas recordadas |
+| Minimum password length | 10 characters |
+| Password must meet complexity requirements | Enabled |
+| Maximum password age | 90 days |
+| Enforce password history | 5 passwords remembered |
 
-La complejidad debe exigir mayúsculas, minúsculas, números y símbolos, y no
-permitir que la contraseña contenga el nombre del usuario.
+Password complexity must require uppercase letters, lowercase letters, numbers and symbols, and must prevent passwords from containing the user's account name.
 
-Comprueba la vigencia desde PowerShell:
+Check password expiration settings using PowerShell:
 
 ```powershell
 net user usuari1
 ```
 
-Valida la política con una contraseña demasiado corta o sin complejidad y
-documenta el rechazo sin mostrar el valor utilizado. Para validar el historial,
-cambia la contraseña de un usuario normal cinco veces y prueba reutilizar una
-anterior desde la interfaz de cambio de contraseña. No uses únicamente un cambio
-administrativo: el administrador puede estar exento de algunas restricciones.
+Validate the policy using a password that is too short or does not meet complexity requirements, and document the rejection without displaying the password used. To validate password history, change a regular user's password five times and then attempt to reuse a previous password through the password change interface. Do not rely exclusively on an administrative password change, as administrators may be exempt from certain restrictions.
 
-## 5. Permisos NTFS de `C:\Projecte`
+## 5. NTFS Permissions for `C:\Projecte`
 
-Crea la carpeta y configura el grupo como propietario funcional:
+Create the folder and configure the group-based access permissions:
 
 ```powershell
 New-Item -ItemType Directory -Path "C:\Projecte" -Force
@@ -77,50 +69,40 @@ icacls "C:\Projecte" /grant:r "Projecte:(OI)(CI)M" "Administrators:(OI)(CI)F" "S
 icacls "C:\Projecte"
 ```
 
-`(OI)(CI)` propaga los permisos a archivos y subcarpetas. `M` concede
-modificación al grupo del proyecto, mientras que los administradores y el
-sistema conservan control total para administrar la máquina.
+`(OI)(CI)` propagates permissions to files and subfolders. `M` grants Modify permissions to the project group, while administrators and the system retain Full Control to manage the machine.
 
-Prueba el acceso iniciando sesión como `usuari1`:
+Test access by signing in as `usuari1`:
 
 ```powershell
 whoami
-Set-Content -Path "C:\Projecte\prueba.txt" -Value "evidencia de laboratorio"
+Set-Content -Path "C:\Projecte\prueba.txt" -Value "lab evidence"
 Get-Content "C:\Projecte\prueba.txt"
 ```
 
-Prueba después con un usuario que no pertenezca a `Projecte`. El acceso debe
-fallar. No añadas ese usuario a un grupo administrativo, porque invalidaría la
-prueba de permisos NTFS.
+Then test with a user who does not belong to `Projecte`. Access should be denied. Do not add this user to an administrative group, as this would invalidate the NTFS permissions test.
 
-## 6. Auditoría de accesos
+## 6. Access Auditing
 
-### 6.1 Habilitar la política global
+### 6.1 Enable the Global Audit Policy
 
-Abre `secpol.msc` y navega a:
+Open `secpol.msc` and navigate to:
 
-`Directivas locales > Directiva de auditoría > Auditar el acceso a objetos`
+`Local Policies > Audit Policy > Audit object access`
 
-Activa auditoría de éxito y error. Esta política permite que Windows genere
-eventos, pero todavía hay que indicar qué carpeta se audita.
+Enable both Success and Failure auditing. This policy allows Windows to generate events, but you must still specify which folder should be audited.
 
-### 6.2 Auditar `C:\Projecte`
+### 6.2 Audit `C:\Projecte`
 
-Desde una cuenta administrativa:
+Using an administrative account:
 
-1. Propiedades de `C:\Projecte`.
-2. **Seguridad > Opciones avanzadas > Auditoría**.
-3. Añade el grupo `Projecte`.
-4. Aplica a esta carpeta, subcarpetas y archivos.
-5. Selecciona acciones de éxito y error relevantes, como lectura, escritura,
-   creación, eliminación y cambio de permisos.
+1. Open the Properties of `C:\Projecte`.
+2. Navigate to **Security > Advanced > Auditing**.
+3. Add the `Projecte` group.
+4. Apply the auditing settings to this folder, subfolders and files.
+5. Select relevant Success and Failure actions, such as reading, writing, creating, deleting and changing permissions.
 
-Genera un acceso creando o modificando `prueba.txt`. Después abre
-`eventvwr.msc`, entra en **Registros de Windows > Seguridad** y filtra los
-eventos relacionados con acceso a objetos. Documenta el usuario, la hora, la
-acción y el objeto auditado.
+Generate an access event by creating or modifying `prueba.txt`. Then open `eventvwr.msc`, navigate to **Windows Logs > Security** and filter for events related to object access. Document the user, timestamp, action and audited object.
 
-## 7. Evidencias
+## 7. Evidence
 
-Las capturas y el resumen del trabajo Windows están en
-[`windows/README.md`](README.md).
+Screenshots and an overview of the Windows lab are available in [`windows/README.md`](README.md).

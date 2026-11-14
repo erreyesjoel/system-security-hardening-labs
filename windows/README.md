@@ -1,48 +1,38 @@
-# Windows Server 2025 y Windows 11
+# Windows Server 2025 and Windows 11
 
-Este apartado documenta la parte Windows de la actividad. El trabajo se realizó
-en una máquina virtual Windows Server 2025 y el procedimiento es aplicable
-también a Windows 11. Es independiente de los laboratorios AlmaLinux Minimal y
-Debian 12.
+This section documents the Windows part of the lab. The work was carried out on a Windows Server 2025 virtual machine, and the procedure is also applicable to Windows 11. It is independent of the AlmaLinux Minimal and Debian 12 labs.
 
-## Configuración realizada
+## Configuration Performed
 
-Se crearon dos usuarios locales (`usuari1` y `usuari2`) y el grupo `projecte`
-mediante PowerShell. Ambos usuarios se añadieron al grupo:
+Two local user accounts (`usuari1` and `usuari2`) and the `projecte` group were created using PowerShell. Both users were added to the group:
 
-![Usuarios locales](evidencias/W01-usuarios-powershell.png)
+![Local users](evidencias/W01-usuarios-powershell.png)
 
-![Miembros del grupo projecte](evidencias/W02-grupo-projecte.png)
+![Members of the projecte group](evidencias/W02-grupo-projecte.png)
 
-Desde `secpol.msc`, en las directivas de cuenta, se configuraron las políticas
-de contraseñas:
+Password policies were configured through `secpol.msc`, under Account Policies:
 
-- longitud mínima de 10 caracteres;
-- complejidad obligatoria;
-- vigencia máxima de 90 días;
-- historial de las últimas 5 contraseñas.
+- Minimum password length: 10 characters.
+- Password complexity requirements enabled.
+- Maximum password age: 90 days.
+- Password history: last 5 passwords remembered.
 
-![Longitud mínima](evidencias/W03-longitud-contrasena.png)
+![Minimum password length](evidencias/W03-longitud-contrasena.png)
 
-![Complejidad](evidencias/W04-complejidad-contrasena.png)
+![Password complexity](evidencias/W04-complejidad-contrasena.png)
 
-![Vigencia máxima](evidencias/W05-caducidad-contrasena.png)
+![Maximum password age](evidencias/W05-caducidad-contrasena.png)
 
-![Historial](evidencias/W06-historial-contrasenas.png)
+![Password history](evidencias/W06-historial-contrasenas.png)
 
-Se configuraron los permisos NTFS de `C:\Projecte` para el grupo `projecte`,
-manteniendo los permisos del sistema y de los administradores:
+NTFS permissions were configured for `C:\Projecte` and the `projecte` group, while preserving system and administrator permissions:
 
-![Permisos de C:\Projecte](evidencias/W07-permisos-projecte.png)
+![C:\Projecte permissions](evidencias/W07-permisos-projecte.png)
 
-La auditoría de accesos quedó registrada en el Visor de eventos de Windows. La
-evidencia muestra un evento asociado al usuario `usuari1`, con identificador
-4690 y categoría `Handle Manipulation`:
+Access auditing was recorded in the Windows Event Viewer. The evidence shows an event associated with the `usuari1` account, with event ID 4690 and the `Handle Manipulation` category:
 
-![Evento de auditoría](evidencias/W08-evento-auditoria.png)
+![Audit event](evidencias/W08-evento-auditoria.png)
 
-## Documentación técnica
+## Technical Documentation
 
-El procedimiento completo, con los comandos PowerShell, la configuración de
-`secpol.msc`, los permisos NTFS y la auditoría, está en
-[`windows/lab.md`](lab.md).
+The complete procedure, including PowerShell commands, `secpol.msc` configuration, NTFS permissions and auditing, is documented in [`windows/lab.md`](lab.md).

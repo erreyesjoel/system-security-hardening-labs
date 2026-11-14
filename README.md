@@ -1,50 +1,47 @@
 # System Security Hardening Labs
 
-Documentación de la actividad **“Plans, polítiques i estàndards de
-securització”**, organizada por sistema operativo y entorno de trabajo.
+Documentation of the **"Security Hardening Plans, Policies and Standards"** activity, organized by operating system and working environment.
 
-## ¿En qué consiste la práctica?
+## What Does This Lab Cover?
 
-La práctica aplica políticas de seguridad a sistemas Windows y Linux para
-gestionar usuarios, contraseñas, permisos, recursos compartidos y auditoría.
+This lab applies security policies to Windows and Linux systems to manage users, passwords, permissions, shared resources and auditing.
 
-Los controles principales son:
+The main security controls include:
 
-- crear usuarios y grupos de trabajo;
-- aplicar contraseñas robustas, caducidad e historial;
-- limitar el acceso a un directorio únicamente a su grupo;
-- registrar accesos y cambios mediante auditoría;
-- revisar el sistema con herramientas de buenas prácticas.
+- Creating users and groups.
+- Enforcing strong passwords, expiration policies and password history.
+- Restricting access to a directory exclusively to its designated group.
+- Recording access and changes through auditing.
+- Assessing system security using best-practice tools.
 
-## Entornos utilizados
+## Environments Used
 
-La práctica no se ejecuta toda en una única máquina:
+The entire lab is not performed on a single machine:
 
-| Laboratorio | Sistema | Finalidad |
+| Lab | System | Purpose |
 |---|---|---|
-| Linux principal | **AlmaLinux Minimal** | Usuarios, grupo, contraseñas, `/opt/projecte` y `auditd` |
-| Auditoría Linux | **Debian 12** | Lynis, revisión de hardening y firewall UFW |
-| Windows | **Windows 10/11 o Windows Server** | PowerShell, políticas locales, permisos NTFS y auditoría |
+| Main Linux environment | **AlmaLinux Minimal** | User and group management, password policies, `/opt/projecte` and `auditd` |
+| Linux auditing | **Debian 12** | Lynis, hardening assessment and UFW firewall |
+| Windows | **Windows 10/11 or Windows Server** | PowerShell, local policies, NTFS permissions and auditing |
 
-Las evidencias se mantienen separadas por entorno y sistema operativo.
+Evidence is organized separately according to the environment and operating system.
 
-## Estructura del repositorio
+## Repository Structure
 
 ```text
 .
 ├── README.md
 ├── linux/
-│   ├── README.md                  # AlmaLinux Minimal y Debian 12
-│   └── evidencias/                # Evidencias Linux
+│   ├── README.md                  # AlmaLinux Minimal and Debian 12
+│   └── evidencias/                # Linux evidence
 ├── windows/
-│   ├── README.md                  # Resumen Windows y capturas
-│   ├── lab.md                     # Procedimiento técnico Windows
-│   └── evidencias/                # Evidencias Windows
-```
+│   ├── README.md                  # Windows overview and screenshots
+│   ├── lab.md                     # Windows technical procedure
+│   └── evidencias/                # Windows evidence
 ```
 
-## Documentación
+## Documentation
 
-- [Linux](linux/README.md): AlmaLinux Minimal y Debian 12.
-- [Windows](windows/README.md): resumen del trabajo y capturas.
-- [Procedimiento Windows](windows/lab.md): configuración técnica del entorno.
+- [Linux](linux/README.md): AlmaLinux Minimal and Debian 12.
+- [Windows](windows/README.md): Work overview and screenshots.
+- [Windows Procedure](windows/lab.md): Technical configuration of the environment.

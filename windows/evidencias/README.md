@@ -1,7 +1,5 @@
-# Evidencias Windows
+# Windows Evidence
 
-Esta carpeta contiene los archivos de imagen del laboratorio Windows. El resumen
-del trabajo está en [`windows/README.md`](../README.md) y el procedimiento
-técnico en [`windows/lab.md`](../lab.md).
+This folder contains the image files for the Windows lab. An overview of the work is available in [`windows/README.md`](../README.md), and the technical procedure is documented in [`windows/lab.md`](../lab.md).
 
-La práctica contempla Windows Server 2025 y Windows 11 como entornos Windows.
+The lab covers Windows Server 2025 and Windows 11 as the Windows environments.

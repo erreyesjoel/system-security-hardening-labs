@@ -1,95 +1,82 @@
-# Evidencias Linux
+# Linux Evidence
 
-Esta carpeta contiene las evidencias integradas del laboratorio Linux. El
-procedimiento y la separación entre AlmaLinux Minimal y Debian 12 se explican en
-[`linux/README.md`](../README.md).
+This folder contains the evidence collected for the Linux lab. The procedure and the separation between AlmaLinux Minimal and Debian 12 are explained in [`linux/README.md`](../README.md).
 
-## Evidencias incorporadas
+## Included Evidence
 
-Estas son las capturas aportadas para esta práctica. Las primeras evidencias
-corresponden principalmente a AlmaLinux y la evidencia E01 corresponde a Debian
-12; por eso no deben presentarse como si fueran una única ejecución sobre el
-mismo sistema.
+The following screenshots were provided for this lab. The first pieces of evidence mainly correspond to AlmaLinux, while evidence E01 corresponds to Debian 12. Therefore, they should not be presented as if they were part of a single execution on the same system.
 
-### E01 — Entorno Debian 12 y Lynis
+### E01 — Debian 12 Environment and Lynis
 
-La imagen confirma que Lynis detecta Debian 12 y sirve como evidencia del entorno
-y del inicio de la auditoría.
+The screenshot confirms that Lynis detects Debian 12 and serves as evidence of the environment and the beginning of the security audit.
 
-![Debian 12 detectado por Lynis](E01-debian12-lynis.png)
+![Debian 12 detected by Lynis](E01-debian12-lynis.png)
 
-### E02 — Usuarios Linux
+### E02 — Linux Users
 
-Se observan `usuari1` y `usuari2` creados con su directorio personal y shell
-`/bin/bash`.
+The screenshot shows `usuari1` and `usuari2` created with their home directories and `/bin/bash` as their login shell.
 
-![Usuarios Linux](E02-usuarios-linux.png)
+![Linux users](E02-usuarios-linux.png)
 
-### E03 — Caducidad de contraseña
+### E03 — Password Expiration
 
-`chage` muestra una caducidad máxima de 90 días y aviso 7 días antes.
+`chage` shows a maximum password age of 90 days and a warning 7 days before expiration.
 
-![Caducidad de contraseña](E03-caducidad-contrasena.png)
+![Password expiration](E03-caducidad-contrasena.png)
 
-### E04 — Directorio protegido
+### E04 — Protected Directory
 
-La prueba muestra que el acceso directo a `/opt/projecte` falla para un usuario
-sin permisos, mientras que el administrador puede comprobar el directorio.
+The test shows that direct access to `/opt/projecte` is denied to a user without the required permissions, while the administrator can inspect the directory.
 
-![Permisos del directorio](E04-permisos-directorio.png)
+![Directory permissions](E04-permisos-directorio.png)
 
-### E05 — Acceso autorizado
+### E05 — Authorized Access
 
-`usuari1`, que pertenece al grupo del proyecto, entra en `/opt/projecte` y crea
-`prova.txt`.
+`usuari1`, who belongs to the project group, accesses `/opt/projecte` and creates `prova.txt`.
 
-![Acceso autorizado](E05-acceso-autorizado.png)
+![Authorized access](E05-acceso-autorizado.png)
 
-### E06 — Acceso denegado
+### E06 — Denied Access
 
-`prova1`, que no pertenece al grupo y tampoco está en `sudoers`, recibe
-`Permission denied`.
+`prova1`, who does not belong to the group and is not listed in `sudoers`, receives `Permission denied`.
 
-![Acceso denegado](E06-acceso-denegado.png)
+![Denied access](E06-acceso-denegado.png)
 
-### E07 y E08 — Auditoría con auditd
+### E07 and E08 — Auditing with auditd
 
-La regla `project_access` aparece cargada y los eventos registran accesos al
-directorio y ficheros creados dentro de él.
+The `project_access` rule appears as loaded, and the audit events record access to the directory and files created inside it.
 
-![Regla de auditd](E07-regla-auditd.png)
+![auditd rule](E07-regla-auditd.png)
 
-![Eventos de auditd](E08-eventos-auditd.png)
+![auditd events](E08-eventos-auditd.png)
 
-### E09, E10 y E11 — Firewall UFW
+### E09, E10 and E11 — UFW Firewall
 
-Estas imágenes documentan una ampliación de hardening en Debian: instalación de
-UFW, política de entrada `deny`, política de salida `allow` y permiso SSH.
+These screenshots document an additional hardening step on Debian: UFW installation, the `deny` incoming policy, the `allow` outgoing policy and SSH access configuration.
 
-![Script de firewall](E09-script-firewall.png)
+![Firewall script](E09-script-firewall.png)
 
-![Instalación de UFW](E10-instalacion-ufw.png)
+![UFW installation](E10-instalacion-ufw.png)
 
-![UFW activo](E11-ufw-activo.png)
+![UFW enabled](E11-ufw-activo.png)
 
-### E12 — Revisión del firewall con Lynis
+### E12 — Firewall Review with Lynis
 
-Lynis detecta el firewall activo y muestra comprobaciones relacionadas con
-`iptables` y servicios de red.
+Lynis detects the active firewall and displays checks related to `iptables` and network services.
 
-![Lynis y firewall](E12-lynis-firewall.png)
+![Lynis and firewall](E12-lynis-firewall.png)
 
-## Índice de evidencias
+## Evidence Index
 
-| ID | Evidencia | Qué debe verse |
+| ID | Evidence | What it shows |
 |---|---|---|
-| E01 | Entorno | Debian 12 detectado por Lynis |
-| E02 | Usuarios | usuarios Linux creados |
-| E03 | Política | caducidad de contraseña con `chage` |
-| E04 | Permisos | acceso no autorizado bloqueado |
-| E05 | Acceso permitido | `usuari1` entrando y creando un fichero |
-| E06 | Acceso denegado | usuario externo recibiendo `Permission denied` |
-| E07 | Regla de auditoría | `auditctl -l` mostrando `project_access` |
-| E08 | Evento | eventos de `auditd` sobre el directorio |
-| E09-E11 | Firewall | script, instalación y estado de UFW |
-| E12 | Hardening | Lynis detectando el firewall activo |
+| E01 | Environment | Debian 12 detected by Lynis |
+| E02 | Users | Linux users created |
+| E03 | Policy | Password expiration settings using `chage` |
+| E04 | Permissions | Unauthorized access blocked |
+| E05 | Allowed access | `usuari1` accessing the directory and creating a file |
+| E06 | Denied access | External user receiving `Permission denied` |
+| E07 | Audit rule | `auditctl -l` displaying `project_access` |
+| E08 | Audit event | `auditd` events related to the directory |
+| E09-E11 | Firewall | Script, UFW installation and firewall status |
+| E12 | Hardening | Lynis detecting the active firewall |
