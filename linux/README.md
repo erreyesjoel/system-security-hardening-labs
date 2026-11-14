@@ -151,13 +151,9 @@ configura primero la regla de SSH para no perder la conexión.
 
 ## 8. Verificación y análisis
 
-```bash
-sudo bash ../scripts/verify-linux.sh
-```
+Anota cada control como `PASS`, `FAIL` o `N/A`, explica la causa y propone una acción correctora.
 
-Anota cada control como `PASS`, `FAIL` o `N/A`, explica la causa y propone una
-acción correctora. Para una comparación antes/después, ejecuta Lynis y conserva
-solo el resumen, el índice y las recomendaciones relevantes:
+Para realizar una comparación antes/después, ejecuta Lynis y conserva únicamente el resumen, el índice de hardening y las recomendaciones relevantes.
 
 ```bash
 sudo lynis audit system
