@@ -40,11 +40,7 @@ Las evidencias se mantienen separadas por entorno y sistema operativo.
 │   ├── README.md                  # Resumen Windows y capturas
 │   ├── lab.md                     # Procedimiento técnico Windows
 │   └── evidencias/                # Evidencias Windows
-├── config/
-│   └── audit-projecte.rules       # Regla persistente de auditd
-└── scripts/
-    ├── setup-linux.sh             # Preparación del laboratorio Linux
-    └── verify-linux.sh            # Comprobaciones Linux
+```
 ```
 
 ## Documentación
