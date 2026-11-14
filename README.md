@@ -33,17 +33,15 @@ Las evidencias se mantienen separadas por entorno y sistema operativo.
 ```text
 .
 ├── README.md
+├── linux/
+│   ├── README.md                  # AlmaLinux Minimal y Debian 12
+│   └── evidencias/                # Evidencias Linux
+├── windows/
+│   ├── README.md                  # Resumen Windows y capturas
+│   ├── lab.md                     # Procedimiento técnico Windows
+│   └── evidencias/                # Evidencias Windows
 ├── config/
 │   └── audit-projecte.rules       # Regla persistente de auditd
-├── docs/
-│   ├── lab-linux.md               # AlmaLinux Minimal y Debian 12
-│   ├── lab-windows.md             # Laboratorio Windows independiente
-│   ├── windows/
-│   │   └── README.md               # Resumen y capturas Windows
-│   └── evidencias/
-│       ├── README.md               # Índice y explicación de capturas
-│       ├── windows/                # Capturas específicas de Windows
-│       └── *.png                   # Evidencias aportadas
 └── scripts/
     ├── setup-linux.sh             # Preparación del laboratorio Linux
     └── verify-linux.sh            # Comprobaciones Linux
@@ -51,7 +49,6 @@ Las evidencias se mantienen separadas por entorno y sistema operativo.
 
 ## Documentación
 
-- [Laboratorio Linux](docs/lab-linux.md): AlmaLinux Minimal y Debian 12.
-- [Laboratorio Windows](docs/lab-windows.md): configuración técnica del entorno.
-- [README de Windows](docs/windows/README.md): resumen del trabajo y capturas.
-- [Evidencias Linux](docs/evidencias/README.md): capturas integradas del entorno Linux.
+- [Linux](linux/README.md): AlmaLinux Minimal y Debian 12.
+- [Windows](windows/README.md): resumen del trabajo y capturas.
+- [Procedimiento Windows](windows/lab.md): configuración técnica del entorno.

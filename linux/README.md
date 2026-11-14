@@ -35,11 +35,11 @@ id
 En AlmaLinux, instala las herramientas necesarias y ejecuta:
 
 ```bash
-sudo bash scripts/setup-linux.sh
+sudo bash ../scripts/setup-linux.sh
 ```
 
 El script crea los usuarios, el grupo, el directorio, instala `auditd` si está
-disponible y carga la regla de auditoría de `config/audit-projecte.rules`.
+disponible y carga la regla de auditoría de `../config/audit-projecte.rules`.
 
 En una instalación Minimal puede ser necesario instalar previamente herramientas
 como `sudo`, `passwd`, `audit` o un editor de texto. El nombre del paquete es
@@ -152,7 +152,7 @@ configura primero la regla de SSH para no perder la conexión.
 ## 8. Verificación y análisis
 
 ```bash
-sudo bash scripts/verify-linux.sh
+sudo bash ../scripts/verify-linux.sh
 ```
 
 Anota cada control como `PASS`, `FAIL` o `N/A`, explica la causa y propone una

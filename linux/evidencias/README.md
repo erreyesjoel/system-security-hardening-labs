@@ -2,11 +2,7 @@
 
 Esta carpeta contiene las evidencias integradas del laboratorio Linux. El
 procedimiento y la separación entre AlmaLinux Minimal y Debian 12 se explican en
-[`docs/lab-linux.md`](../lab-linux.md).
-
-Las evidencias Linux están en esta carpeta. Las evidencias Windows están en
-[evidencias/windows/](windows/) y se explican en
-[docs/windows/README.md](../windows/README.md).
+[`linux/README.md`](../README.md).
 
 ## Evidencias incorporadas
 

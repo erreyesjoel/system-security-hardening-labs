@@ -123,4 +123,4 @@ acción y el objeto auditado.
 ## 7. Evidencias
 
 Las capturas y el resumen del trabajo Windows están en
-[`docs/windows/README.md`](windows/README.md).
+[`windows/README.md`](README.md).
