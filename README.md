@@ -20,7 +20,7 @@ The entire lab is not performed on a single machine:
 
 | Lab | System | Purpose |
 |---|---|---|
-| Main Linux environment | **AlmaLinux Minimal** | User and group management, password policies, `/opt/projecte` and `auditd` |
+| Main Linux environment | **AlmaLinux Minimal** | User and group management, password policies, `/opt/projecte` |
 | Linux auditing | **Debian 12** | Lynis, hardening assessment and UFW firewall |
 | Windows | **Windows 10/11 or Windows Server** | PowerShell, local policies, NTFS permissions and auditing |
 
